@@ -17,6 +17,8 @@ class Counter extends Component {
         <button type="button" style={{marginRight: '1.875rem'}} className="btn btn-dark">
           Upgrade !
         </button>
+        <hr/>
+        {!!this.state.tags.length && <span>The array is full !</span>}
         <ul>
           {this.state.tags.map(_ => <li key={_}>{_}</li>)}
         </ul>

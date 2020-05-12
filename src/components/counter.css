@@ -1,3 +1,9 @@
+hr + span {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+}
+
 ul {
   list-style: none;
   width: 70%;
