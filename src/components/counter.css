@@ -1,0 +1,15 @@
+ul {
+  list-style: none;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 0.8rem;
+}
+
+ul li {
+  color: white;
+  padding: .5rem;
+  background-color: coral;
+  text-transform: capitalize;
+  margin-bottom: .5rem;
+}
+/*# sourceMappingURL=counter.css.map */

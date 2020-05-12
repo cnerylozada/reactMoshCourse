@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import './counter.css';
 
 class Counter extends Component {
   state = {
     count: 99,
-    imageUrl: 'https://picsum.photos/200'
+    imageUrl: 'https://picsum.photos/200',
+    tags: ['tag1', 'tag2', 'tag3']
   };
 
   render() {
@@ -15,7 +17,9 @@ class Counter extends Component {
         <button type="button" style={{marginRight: '1.875rem'}} className="btn btn-dark">
           Upgrade !
         </button>
-        <img src={this.state.imageUrl} />
+        <ul>
+          {this.state.tags.map(_ => <li key={_}>{_}</li>)}
+        </ul>
       </React.Fragment>
     )
   }
