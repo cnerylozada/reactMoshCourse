@@ -3,7 +3,7 @@ import './counter.css';
 
 class Counter extends Component {
   state = {
-    count: 0,
+    count: this.props.value,
     imageUrl: 'https://picsum.photos/200',
     tags: ['tag1', 'tag2', 'tag3']
   };
@@ -13,9 +13,9 @@ class Counter extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <React.Fragment>
+        {this.props.children}
         <h3>
           <span className={this.getBadgeClass()}>{this.formatCount()}</span>
         </h3>
