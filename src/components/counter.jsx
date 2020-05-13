@@ -3,25 +3,29 @@ import './counter.css';
 
 class Counter extends Component {
   state = {
-    count: 99,
+    count: 0,
     imageUrl: 'https://picsum.photos/200',
     tags: ['tag1', 'tag2', 'tag3']
   };
 
+  handleIncrement = product => {
+    this.setState({count: this.state.count + 1})
+  }
+
   render() {
+    console.log(this.props);
     return (
       <React.Fragment>
-        <h1>
+        <h3>
           <span className={this.getBadgeClass()}>{this.formatCount()}</span>
-        </h1>
-        <button type="button" style={{marginRight: '1.875rem'}} className="btn btn-dark">
+        </h3>
+        <button 
+          type="button" onClick={() => this.handleIncrement({id: 1})}
+          style={{marginRight: '1.875rem'}} className="btn btn-dark">
           Upgrade !
         </button>
         <hr/>
         {!!this.state.tags.length && <span>The array is full !</span>}
-        <ul>
-          {this.state.tags.map(_ => <li key={_}>{_}</li>)}
-        </ul>
       </React.Fragment>
     )
   }

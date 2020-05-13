@@ -1,19 +1,8 @@
+h3 {
+    display: inline-block;
+}
 hr + span {
     display: block;
     text-align: center;
     font-weight: bold;
-}
-
-ul {
-    list-style: none;
-    width: 70%;
-    margin: 0 auto;
-    margin-top: 0.8rem;
-    li{
-        color: white;
-        padding: .5rem;
-        background-color: coral;
-        text-transform: capitalize;
-        margin-bottom: .5rem;
-    }
 }
