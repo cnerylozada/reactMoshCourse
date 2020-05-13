@@ -21,8 +21,12 @@ class Counter extends Component {
         </h3>
         <button 
           type="button" onClick={() => this.handleIncrement({id: 1})}
-          style={{marginRight: '1.875rem'}} className="btn btn-dark">
+          style={{marginRight: '.5rem'}} className="btn btn-dark">
           Upgrade !
+        </button>
+        <button type="button" className="btn btn-danger" 
+          onClick={() => this.props.onDelete(this.props.id)}>
+          Delete
         </button>
         <hr/>
         {!!this.state.tags.length && <span>The array is full !</span>}
