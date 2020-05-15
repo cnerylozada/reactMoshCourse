@@ -2,15 +2,6 @@ import React, { Component } from 'react';
 import './counter.css';
 
 class Counter extends Component {
-  state = {
-    count: this.props.value,
-    imageUrl: 'https://picsum.photos/200',
-    tags: ['tag1', 'tag2', 'tag3']
-  };
-
-  handleIncrement = product => {
-    this.setState({count: this.state.count + 1})
-  }
 
   render() {
     return (
@@ -20,27 +11,26 @@ class Counter extends Component {
           <span className={this.getBadgeClass()}>{this.formatCount()}</span>
         </h3>
         <button 
-          type="button" onClick={() => this.handleIncrement({id: 1})}
+          type="button" onClick={() => this.props.onIncrement(this.props.counter)}
           style={{marginRight: '.5rem'}} className="btn btn-dark">
           Upgrade !
         </button>
         <button type="button" className="btn btn-danger" 
-          onClick={() => this.props.onDelete(this.props.id)}>
+          onClick={() => this.props.onDelete(this.props.counter.id)}>
           Delete
         </button>
         <hr/>
-        {!!this.state.tags.length && <span>The array is full !</span>}
       </React.Fragment>
     )
   }
 
   getBadgeClass = () => {
     let classes = 'badge m-2 badge-';
-    classes += !this.state.count ? 'warning' : 'primary';
+    classes += !this.props.counter.value ? 'warning' : 'primary';
     return classes;
   }
   formatCount = () => {
-    const {count} = this.state;
+    const {value: count} = this.props.counter;
     return !!count ? count : 'Zero';
   }
 }
