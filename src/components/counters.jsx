@@ -32,7 +32,7 @@ class Counters extends Component {
     return (
       <div>
       <button type="button" onClick={this.handleReset}
-        className="btn btn-secondary">
+        className="btn btn-secondary" style={{marginBottom: '0.625rem'}}>
         Reset
       </button>
         {this.state.counters.map(

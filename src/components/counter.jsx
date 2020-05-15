@@ -19,7 +19,6 @@ class Counter extends Component {
           onClick={() => this.props.onDelete(this.props.counter.id)}>
           Delete
         </button>
-        <hr/>
       </React.Fragment>
     )
   }
