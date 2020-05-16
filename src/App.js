@@ -24,6 +24,13 @@ class App extends Component{
     this.setState({counters});
   }
 
+  handleDecrement = counter => {
+    const counters = this.state.counters.map(_ => {
+      return _.id === counter.id ? {..._, value: --_.value} : _;
+    })
+    this.setState({counters});
+  }
+
   handleReset = () => {
     const counters = this.state.counters.map(_ => ({..._, value: 0}));
     this.setState({ counters })
@@ -38,6 +45,7 @@ class App extends Component{
             <div className="col-sm">
               <Counters 
                 onIncrement={this.handleIncrement}
+                onDecrement={this.handleDecrement}
                 onDelete={this.handleDelete}
                 onReset={this.handleReset} 
                 state={this.state} />
