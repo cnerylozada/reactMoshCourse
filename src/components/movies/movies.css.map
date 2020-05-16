@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,aAAa,CAAC;EACV,WAAW,EAAE,IAAI;CACpB;;AAED,AAAA,KAAK,CAAC;EACF,UAAU,EAAE,IAAI;EAChB,UAAU,EAAE,QAAQ;CACvB;;AAED,AAAA,eAAe,CAAC;EACZ,OAAO,EAAE,KAAK;CACjB;;AAED,AAAA,iBAAiB,CAAC;EACd,OAAO,EAAE,IAAI;CAChB",
+    "sources": [
+        "movies.scss"
+    ],
+    "names": [],
+    "file": "movies.css"
+}
