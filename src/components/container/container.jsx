@@ -4,11 +4,9 @@ import './container.css';
 const Container = () => {
   return (
     <div className="container">
+      <h1 className="display-4">Movies</h1>
       <div className="row">
-        <div className="col-sm">
-          <h1 className="display-4">Movies</h1>
-          <Movies />
-        </div>
+        <Movies></Movies>
       </div>
     </div>
   )

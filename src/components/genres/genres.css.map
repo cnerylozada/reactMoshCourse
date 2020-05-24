@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AACI,WADO,CACP,CAAC,CAAC;EACE,MAAM,EAAE,OAAO;CAClB",
+    "sources": [
+        "genres.scss"
+    ],
+    "names": [],
+    "file": "genres.css"
+}
