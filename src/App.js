@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import NavBar from './components/nav';
-import Counters from './components/counters';
+import NavBar from './components/mosh-initial/nav/nav';
+import Counters from './components/mosh-initial/counters/counters';
 
 class App extends Component{
   state = {

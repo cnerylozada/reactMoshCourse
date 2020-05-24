@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 class Like extends Component {
   showLike = isLiked => {
     let className = 'fa fa-heart';

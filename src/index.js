@@ -8,7 +8,8 @@ import 'font-awesome/css/font-awesome.css';
 import Container from './components/container/container';
 
 ReactDOM.render(
-  <Container />,
+  <App />,
+  // <Container />,
   document.getElementById('root')
 );
 

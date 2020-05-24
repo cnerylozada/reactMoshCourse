@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './nav.css'
 const NavBar = ({numOfCounters}) => {
   return (
