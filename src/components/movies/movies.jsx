@@ -10,10 +10,10 @@ class Movies extends Component {
 
   filterByGender = genderName => {
     this.state.movies = getMovies();
-    const movies = !!genderName ? 
+    const movies = genderName !== 'All Genres' ?
       this.state.movies.filter(_ => _.genre.name === genderName)
       : getMovies();
-    this.setState({movies});
+    this.setState({ movies });
   }
 
   displayMovieMessage = () => {
@@ -36,11 +36,35 @@ class Movies extends Component {
     console.log(!!movie.like ? `You like ${movie.title}` : `You dont like ${movie.title}`);
   }
 
+  sortByTitle = () => {
+    const movies = this.state.movies.sort(
+      (current, next) => (current.title > next.title) ? 1 : -1);
+    this.setState({ movies });
+  }
+
+  sortByGenre = () => {
+    const movies = this.state.movies.sort(
+      (current, next) => (current.genre.name > next.genre.name) ? 1 : -1);
+    this.setState({ movies });
+  }
+
+  sortByStock = () => {
+    const movies = this.state.movies.sort(
+      (current, next) => (current.numberInStock > next.numberInStock) ? 1 : -1);
+    this.setState({ movies });
+  }
+
+  sortByRate = () => {
+    const movies = this.state.movies.sort(
+      (current, next) => (current.dailyRentalRate > next.dailyRentalRate) ? 1 : -1);
+    this.setState({ movies });
+  }
+
   render() {
     return (
       <React.Fragment>
         <div className="col-sm-4">
-          <Genres onFilter = {this.filterByGender} />
+          <Genres onFilter={this.filterByGender} />
         </div>
         <div className="col-sm-8">
           <span className="movieMessage">{this.displayMovieMessage()}</span>
@@ -48,10 +72,10 @@ class Movies extends Component {
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Genre</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Rate</th>
+                <th scope="col" onClick={this.sortByTitle}>Title</th>
+                <th scope="col" onClick={this.sortByGenre}>Genre</th>
+                <th scope="col" onClick={this.sortByStock}>Stock</th>
+                <th scope="col" onClick={this.sortByRate}>Rate</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
               </tr>

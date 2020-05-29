@@ -7,6 +7,10 @@ table {
   text-align: 'center';
 }
 
+table thead th {
+  cursor: pointer;
+}
+
 .moviesWithData {
   display: block;
 }
