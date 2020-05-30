@@ -84,8 +84,6 @@ class Movies extends Component {
         <div className="col-sm-4">
           <ListGroup
             items={this.state.genres}
-            valueProperty="_id"
-            textProperty="name"
             onFilter={this.filterByGender}
             currentGenderIndex={this.state.currentGenderIndex} />
         </div>
