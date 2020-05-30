@@ -3,7 +3,7 @@ export const numberOfPages = (totalOfItems, itemsByPage) => {
         ? totalOfItems / itemsByPage : Math.floor(totalOfItems / itemsByPage) + 1;
 }
 
-export const paginateItemsByIndex = (items, index) => {
+export const showItemsByPage = (items, index) => {
     let begin = ITEMS_BY_PAGE * index;
     let end = begin + ITEMS_BY_PAGE;
     return items.slice(begin, end);

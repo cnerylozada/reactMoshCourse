@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getMovies, deleteMovie as deleteFromDb } from '../../services/fakeMovieService';
 import './movies.css';
 import Paginator from '../paginator/paginator';
-import { numberOfPages, ITEMS_BY_PAGE, paginateItemsByIndex } from '../../utils/numberOfPages';
+import { numberOfPages, ITEMS_BY_PAGE, showItemsByPage } from '../../utils/numberOfPages';
 import { getGenres } from '../../services/fakeGenreService';
 import ListGroup from '../../_commons/list-group/list-group';
 import Like from '../../_commons/like/like';
@@ -11,7 +11,7 @@ class Movies extends Component {
     movies: [],
     genres: [],
     currentPage: 0,
-    currentGenderIndex: 0,
+    genderSelected: 'All Genres'
   }
 
   componentDidMount() {
@@ -22,16 +22,16 @@ class Movies extends Component {
   }
 
   filterByGender = (genderName, index) => {
-    this.state.movies = getMovies();
-    const movies = genderName !== 'All Genres' ?
-      this.state.movies.filter(_ => _.genre.name === genderName)
-      : getMovies();
-    this.setState({ currentGenderIndex: index, movies });
+    this.setState({ 
+      currentPage: 0,
+      currentGenderIndex: index,
+      genderSelected: genderName
+    });
   }
 
-  displayMovieMessage = () => {
-    return !!this.state.movies.length ?
-      `Showing ${this.state.movies.length}  movies in the database`
+  displayMovieMessage = numOfItems => {
+    return !!numOfItems ?
+      `Showing ${numOfItems}  movies in the database`
       : 'There are no movies in database';
   }
 
@@ -73,12 +73,15 @@ class Movies extends Component {
     this.setState({ movies });
   }
 
-  paginateItems = index => {
+  handlePageChange = index => {
     this.setState({ currentPage: index });
   }
 
   render() {
-    const movies = paginateItemsByIndex(getMovies(), this.state.currentPage);
+    const filtered = this.state.genderSelected !== 'All Genres' ?
+      this.state.movies.filter(_ => _.genre.name === this.state.genderSelected)
+      : this.state.movies;
+    const moviesByPage = showItemsByPage(filtered, this.state.currentPage);
     return (
       <React.Fragment>
         <div className="col-sm-4">
@@ -88,7 +91,9 @@ class Movies extends Component {
             currentGenderIndex={this.state.currentGenderIndex} />
         </div>
         <div className="col-sm-8">
-          <span className="movieMessage">{this.displayMovieMessage()}</span>
+          <span className="movieMessage">
+            {this.displayMovieMessage(filtered.length)}
+          </span>
           <table className="table">
             <thead>
               <tr>
@@ -102,7 +107,7 @@ class Movies extends Component {
               </tr>
             </thead>
             <tbody>
-              {movies.map((_, index) => {
+              {moviesByPage.map((_, index) => {
                 return (
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>
@@ -125,9 +130,9 @@ class Movies extends Component {
             </tbody>
           </table>
           <Paginator
-            sectionsByPage={this.paginateItems}
+            numOfPages={numberOfPages(filtered.length, ITEMS_BY_PAGE)}
             currentPage={this.state.currentPage}
-            numOfPages={numberOfPages(getMovies().length, ITEMS_BY_PAGE)} />
+            onPageChange={this.handlePageChange} />
         </div>
       </React.Fragment>
     )
