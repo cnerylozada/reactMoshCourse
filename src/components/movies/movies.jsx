@@ -4,19 +4,20 @@ import './movies.css';
 import Like from '../like/like';
 import Genres from '../genres/genres';
 import Paginator from '../paginator/paginator';
-import { numberOfPages, ITEMS_BY_PAGE } from '../../utils/numberOfPages';
+import { numberOfPages, ITEMS_BY_PAGE, paginateItemsByIndex } from '../../utils/numberOfPages';
 class Movies extends Component {
   state = {
     movies: getMovies(),
-    currentPage: 0
+    currentPage: 0,
+    currentGenderIndex: 0,
   }
 
-  filterByGender = genderName => {
+  filterByGender = (genderName, index) => {
     this.state.movies = getMovies();
     const movies = genderName !== 'All Genres' ?
       this.state.movies.filter(_ => _.genre.name === genderName)
       : getMovies();
-    this.setState({ movies });
+    this.setState({currentGenderIndex: index, movies });
   }
 
   displayMovieMessage = () => {
@@ -64,18 +65,17 @@ class Movies extends Component {
   }
 
   paginateItems = index => {
-    this.state.movies = getMovies();
-    let begin = ITEMS_BY_PAGE * index;
-    let end = begin + ITEMS_BY_PAGE;
-    const movies = this.state.movies.slice(begin, end);
-    this.setState({currentPage: index, movies});
+    this.setState({currentPage: index});
   }
 
   render() {
+    const movies = paginateItemsByIndex(getMovies(), this.state.currentPage);
     return (
       <React.Fragment>
         <div className="col-sm-4">
-          <Genres onFilter={this.filterByGender} />
+          <Genres 
+            onFilter={this.filterByGender}
+            currentGenderIndex={this.state.currentGenderIndex} />
         </div>
         <div className="col-sm-8">
           <span className="movieMessage">{this.displayMovieMessage()}</span>
@@ -92,7 +92,7 @@ class Movies extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.movies.map((_, index) => {
+              {movies.map((_, index) => {
                 return (
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>

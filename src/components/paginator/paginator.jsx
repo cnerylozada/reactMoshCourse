@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Paginator = ({numOfPages, currentPage, sectionsByPage }) => {
   const pages = [...Array(numOfPages).keys()];
@@ -19,4 +20,9 @@ const Paginator = ({numOfPages, currentPage, sectionsByPage }) => {
   );
 }
 
+Paginator.propTypes = {
+  numOfPages: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  sectionsByPage: PropTypes.func.isRequired
+}
 export default Paginator;
