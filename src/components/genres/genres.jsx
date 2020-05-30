@@ -8,7 +8,7 @@ class Genres extends Component {
   render() {
     return (
       <div className="list-group">
-        {this.state.genres.map((_, i) => <a
+        {this.state.genres.map((_, i) => <a key={i}
           onClick={() => this.props.onFilter(_.name)}
           className="list-group-item list-group-item-action">
           {_.name}

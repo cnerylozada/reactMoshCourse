@@ -3,6 +3,8 @@ import { getMovies, deleteMovie } from '../../services/fakeMovieService';
 import './movies.css';
 import Like from '../like/like';
 import Genres from '../genres/genres';
+import Paginator from '../paginator/paginator';
+import { numberOfPages, ITEMS_BY_PAGE } from '../../utils/numberOfPages';
 class Movies extends Component {
   state = {
     movies: getMovies()
@@ -60,6 +62,12 @@ class Movies extends Component {
     this.setState({ movies });
   }
 
+  paginateItems = index => {
+    let begin = ITEMS_BY_PAGE * index;
+    let end = begin + ITEMS_BY_PAGE;
+    console.log(this.state.movies.slice(begin, end));
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -83,7 +91,7 @@ class Movies extends Component {
             <tbody>
               {this.state.movies.map((_, index) => {
                 return (
-                  <tr key={_._id}>
+                  <tr key={index}>
                     <th scope="row">{index + 1}</th>
                     <td>{_.title}</td>
                     <td>{_.genre.name}</td>
@@ -103,6 +111,9 @@ class Movies extends Component {
               })}
             </tbody>
           </table>
+          <Paginator
+            sectionsByPage={this.paginateItems}
+            numOfPages={numberOfPages(this.state.movies.length, ITEMS_BY_PAGE)} />
         </div>
       </React.Fragment>
     )
