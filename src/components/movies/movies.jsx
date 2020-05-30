@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
 import { getMovies, deleteMovie as deleteFromDb } from '../../services/fakeMovieService';
 import './movies.css';
-import Like from '../like/like';
-import Genres from '../genres/genres';
 import Paginator from '../paginator/paginator';
 import { numberOfPages, ITEMS_BY_PAGE, paginateItemsByIndex } from '../../utils/numberOfPages';
+import { getGenres } from '../../services/fakeGenreService';
+import ListGroup from '../../_commons/list-group/list-group';
+import Like from '../../_commons/like/like';
 class Movies extends Component {
   state = {
-    movies: getMovies(),
+    movies: [],
+    genres: [],
     currentPage: 0,
     currentGenderIndex: 0,
+  }
+
+  componentDidMount() {
+    this.setState({
+      movies: getMovies(),
+      genres: [{ _id: '0', name: 'All Genres' }, ...getGenres()]
+    })
   }
 
   filterByGender = (genderName, index) => {
@@ -17,7 +26,7 @@ class Movies extends Component {
     const movies = genderName !== 'All Genres' ?
       this.state.movies.filter(_ => _.genre.name === genderName)
       : getMovies();
-    this.setState({currentGenderIndex: index, movies });
+    this.setState({ currentGenderIndex: index, movies });
   }
 
   displayMovieMessage = () => {
@@ -65,7 +74,7 @@ class Movies extends Component {
   }
 
   paginateItems = index => {
-    this.setState({currentPage: index});
+    this.setState({ currentPage: index });
   }
 
   render() {
@@ -73,7 +82,10 @@ class Movies extends Component {
     return (
       <React.Fragment>
         <div className="col-sm-4">
-          <Genres 
+          <ListGroup
+            items={this.state.genres}
+            valueProperty="_id"
+            textProperty="name"
             onFilter={this.filterByGender}
             currentGenderIndex={this.state.currentGenderIndex} />
         </div>
