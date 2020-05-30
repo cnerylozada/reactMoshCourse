@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getMovies, deleteMovie } from '../../services/fakeMovieService';
+import { getMovies, deleteMovie as deleteFromDb } from '../../services/fakeMovieService';
 import './movies.css';
 import Like from '../like/like';
 import Genres from '../genres/genres';
@@ -7,7 +7,8 @@ import Paginator from '../paginator/paginator';
 import { numberOfPages, ITEMS_BY_PAGE } from '../../utils/numberOfPages';
 class Movies extends Component {
   state = {
-    movies: getMovies()
+    movies: getMovies(),
+    currentPage: 0
   }
 
   filterByGender = genderName => {
@@ -25,8 +26,8 @@ class Movies extends Component {
   }
 
   deleteMovie = movieId => {
-    const movies = this.state.movies.filter(_ => _._id !== movieId);
-    this.setState({ movies })
+    deleteFromDb(movieId);
+    this.setState({ movies: getMovies() })
   }
 
   addLike = movie => {
@@ -63,9 +64,11 @@ class Movies extends Component {
   }
 
   paginateItems = index => {
+    this.state.movies = getMovies();
     let begin = ITEMS_BY_PAGE * index;
     let end = begin + ITEMS_BY_PAGE;
-    console.log(this.state.movies.slice(begin, end));
+    const movies = this.state.movies.slice(begin, end);
+    this.setState({currentPage: index, movies});
   }
 
   render() {
@@ -113,7 +116,8 @@ class Movies extends Component {
           </table>
           <Paginator
             sectionsByPage={this.paginateItems}
-            numOfPages={numberOfPages(this.state.movies.length, ITEMS_BY_PAGE)} />
+            currentPage={this.state.currentPage}
+            numOfPages={numberOfPages(getMovies().length, ITEMS_BY_PAGE)} />
         </div>
       </React.Fragment>
     )

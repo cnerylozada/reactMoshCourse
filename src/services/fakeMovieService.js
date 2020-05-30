@@ -41,6 +41,13 @@ const movies = [
     dailyRentalRate: 3.5
   },
   {
+    _id: "5b21ca3e111f6fbccxx7181a",
+    title: "Dumb and Dumber",
+    genre: { _id: "5b21ca3eeb7f6fbccd471814", name: "Comedy" },
+    numberInStock: 10,
+    dailyRentalRate: 4.5
+  },
+  {
     _id: "5b21ca3eeb7f6fbccd47181b",
     title: "Wedding Crashers",
     genre: { _id: "5b21ca3eeb7f6fbccd471814", name: "Comedy" },
@@ -67,6 +74,20 @@ const movies = [
     genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
     numberInStock: 7,
     dailyRentalRate: 3.5
+  },
+  {
+    _id: "5b21ca39635f6fbccd4abc21",
+    title: "Inglourious Basterds",
+    genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
+    numberInStock: 8,
+    dailyRentalRate: 4.5
+  },
+  {
+    _id: "5xx1ca3ee00000bccd471821",
+    title: "Bad Boys 2",
+    genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
+    numberInStock: 5,
+    dailyRentalRate: 4.5
   }
 ];
 
