@@ -13,7 +13,7 @@ class Movies extends Component {
     genres: [],
     currentPage: 0,
     genderSelected: 'All Genres',
-    sorting: {field: 'title', order: 'asc'}
+    sorting: { field: 'title', order: 'asc' }
   }
 
   componentDidMount() {
@@ -23,23 +23,18 @@ class Movies extends Component {
     })
   }
 
-  filterByGender = (genderName, index) => {
-    this.setState({ 
-      currentPage: 0,
-      currentGenderIndex: index,
-      genderSelected: genderName
-    });
-  }
-
   displayMovieMessage = numOfItems => {
     return !!numOfItems ?
       `Showing ${numOfItems}  movies in the database`
       : 'There are no movies in database';
   }
 
-  deleteMovie = movieId => {
-    deleteFromDb(movieId);
-    this.setState({ movies: getMovies() })
+  filterByGender = (genderName, index) => {
+    this.setState({
+      currentPage: 0,
+      currentGenderIndex: index,
+      genderSelected: genderName
+    });
   }
 
   addLike = movie => {
@@ -50,39 +45,47 @@ class Movies extends Component {
     this.setState({ movies });
     console.log(!!movie.like ? `You like ${movie.title}` : `You dont like ${movie.title}`);
   }
-  
+
+  deleteMovie = movieId => {
+    deleteFromDb(movieId);
+    this.setState({ movies: getMovies() })
+  }
+
   handlePageChange = index => {
     this.setState({ currentPage: index });
   }
-  
+
   handleSort = fieldSelected => {
-    this.setState({sorting: {field: fieldSelected, order: 'asc'}});
+    if ({ ...this.state }.sorting.order === 'asc') {
+      this.setState({ sorting: { field: fieldSelected, order: 'desc' } });
+    } else {
+      this.setState({ sorting: { field: fieldSelected, order: 'asc' } });
+    }
   };
 
   render() {
-    const {sorting} = this.state;
+    const { genres, genderSelected, currentGenderIndex,
+      movies: allMovies, sorting, currentPage } = this.state;
 
-    const filtered = this.state.genderSelected !== 'All Genres' ?
-      this.state.movies.filter(_ => _.genre.name === this.state.genderSelected)
-      : this.state.movies;
-
+    const filtered = genderSelected !== 'All Genres' ?
+      allMovies.filter(_ => _.genre.name === genderSelected)
+      : allMovies;
     const moviesSorted = _.orderBy(filtered, [sorting.field], [sorting.order]);
-
-    const moviesByPage = showItemsByPage(moviesSorted, this.state.currentPage);
+    const moviesByPage = showItemsByPage(moviesSorted, currentPage);
 
     return (
       <React.Fragment>
         <div className="col-sm-4">
           <ListGroup
-            items={this.state.genres}
+            items={genres}
             onFilter={this.filterByGender}
-            currentGenderIndex={this.state.currentGenderIndex} />
+            currentGenderIndex={currentGenderIndex} />
         </div>
         <div className="col-sm-8">
           <span className="movieMessage">
             {this.displayMovieMessage(filtered.length)}
           </span>
-          <MoviesTable 
+          <MoviesTable
             moviesByPage={moviesByPage}
             onAddLike={this.addLike}
             onDeleteMovie={this.deleteMovie}
@@ -90,7 +93,7 @@ class Movies extends Component {
           />
           <Paginator
             numOfPages={numberOfPages(filtered.length, ITEMS_BY_PAGE)}
-            currentPage={this.state.currentPage}
+            currentPage={currentPage}
             onPageChange={this.handlePageChange} />
         </div>
       </React.Fragment>

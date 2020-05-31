@@ -2,29 +2,18 @@ import * as genresAPI from "./fakeGenreService";
 
 const movies = [
   {
-    _id: "5b21ca3eeb7f6fbccd471815",
-    title: "Terminator",
-    genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
-    numberInStock: 6,
-    dailyRentalRate: 2.5,
-    publishDate: "2018-01-03T19:04:28.809Z",
-    like: true
-  },
-  {
-    _id: "5b21ca3eeb7f6fbccd471816",
-    title: "Die Hard",
-    genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
-    numberInStock: 5,
-    dailyRentalRate: 2.5,
-    like: false
-  },
-  {
-    _id: "5b21ca3eeb7f6fbccd471817",
-    title: "Get Out",
+    _id: "5b2115986b7f6fbccd47181e",
+    title: "Lion",
     genre: { _id: "5b21ca3eeb7f6fbccd471820", name: "Thriller" },
-    numberInStock: 8,
-    dailyRentalRate: 3.5,
-    like: true
+    numberInStock: 7,
+    dailyRentalRate: 4.5
+  },
+  {
+    _id: "5b21caahsjif6fbccd47181f",
+    title: "Code Da Vinci",
+    genre: { _id: "5b21ca3eeb7f6fbccd471820", name: "Thriller" },
+    numberInStock: 4,
+    dailyRentalRate: 3.9
   },
   {
     _id: "5b21ca3eeb7f6fbccd471819",
@@ -69,6 +58,31 @@ const movies = [
     dailyRentalRate: 3.5
   },
   {
+    _id: "5b21ca3eeb7f6fbccd471815",
+    title: "Terminator",
+    genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
+    numberInStock: 6,
+    dailyRentalRate: 2.5,
+    publishDate: "2018-01-03T19:04:28.809Z",
+    like: true
+  },
+  {
+    _id: "5b21ca3eeb7f6fbccd471816",
+    title: "Die Hard",
+    genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
+    numberInStock: 5,
+    dailyRentalRate: 2.5,
+    like: false
+  },
+  {
+    _id: "5b21ca3eeb7f6fbccd471817",
+    title: "Get Out",
+    genre: { _id: "5b21ca3eeb7f6fbccd471820", name: "Thriller" },
+    numberInStock: 8,
+    dailyRentalRate: 3.5,
+    like: true
+  },
+  {
     _id: "5b21ca3eeb7f6fbccd471821",
     title: "The Avengers",
     genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
@@ -88,20 +102,6 @@ const movies = [
     genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
     numberInStock: 5,
     dailyRentalRate: 4.5
-  },
-  {
-    _id: "5b2115986b7f6fbccd47181e",
-    title: "Lion",
-    genre: { _id: "5b21ca3eeb7f6fbccd471820", name: "Thriller" },
-    numberInStock: 7,
-    dailyRentalRate: 4.5
-  },
-  {
-    _id: "5b21caahsjif6fbccd47181f",
-    title: "Code Da Vinci",
-    genre: { _id: "5b21ca3eeb7f6fbccd471820", name: "Thriller" },
-    numberInStock: 4,
-    dailyRentalRate: 3.9
   },
   {
     _id: "5b21ca3eeb7f6fbccdqys6e",
