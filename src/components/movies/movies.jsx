@@ -5,14 +5,15 @@ import Paginator from '../paginator/paginator';
 import { numberOfPages, ITEMS_BY_PAGE, showItemsByPage } from '../../utils/numberOfPages';
 import { getGenres } from '../../services/fakeGenreService';
 import ListGroup from '../../_commons/list-group/list-group';
-import Like from '../../_commons/like/like';
 import MoviesTable from '../movies-table/movies-table';
+import _ from 'lodash';
 class Movies extends Component {
   state = {
     movies: [],
     genres: [],
     currentPage: 0,
-    genderSelected: 'All Genres'
+    genderSelected: 'All Genres',
+    sorting: {field: 'title', order: 'asc'}
   }
 
   componentDidMount() {
@@ -49,40 +50,26 @@ class Movies extends Component {
     this.setState({ movies });
     console.log(!!movie.like ? `You like ${movie.title}` : `You dont like ${movie.title}`);
   }
-
-  sortByTitle = () => {
-    const movies = this.state.movies.sort(
-      (current, next) => (current.title > next.title) ? 1 : -1);
-    this.setState({ movies });
-  }
-
-  sortByGenre = () => {
-    const movies = this.state.movies.sort(
-      (current, next) => (current.genre.name > next.genre.name) ? 1 : -1);
-    this.setState({ movies });
-  }
-
-  sortByStock = () => {
-    const movies = this.state.movies.sort(
-      (current, next) => (current.numberInStock > next.numberInStock) ? 1 : -1);
-    this.setState({ movies });
-  }
-
-  sortByRate = () => {
-    const movies = this.state.movies.sort(
-      (current, next) => (current.dailyRentalRate > next.dailyRentalRate) ? 1 : -1);
-    this.setState({ movies });
-  }
-
+  
   handlePageChange = index => {
     this.setState({ currentPage: index });
   }
+  
+  handleSort = fieldSelected => {
+    this.setState({sorting: {field: fieldSelected, order: 'asc'}});
+  };
 
   render() {
+    const {sorting} = this.state;
+
     const filtered = this.state.genderSelected !== 'All Genres' ?
       this.state.movies.filter(_ => _.genre.name === this.state.genderSelected)
       : this.state.movies;
-    const moviesByPage = showItemsByPage(filtered, this.state.currentPage);
+
+    const moviesSorted = _.orderBy(filtered, [sorting.field], [sorting.order]);
+
+    const moviesByPage = showItemsByPage(moviesSorted, this.state.currentPage);
+
     return (
       <React.Fragment>
         <div className="col-sm-4">
@@ -97,12 +84,9 @@ class Movies extends Component {
           </span>
           <MoviesTable 
             moviesByPage={moviesByPage}
-            OnAddLike={this.addLike}
-            OnDeleteMovie={this.deleteMovie}
-            sortByTitle={this.sortByTitle} 
-            sortByGenre={this.sortByGenre}
-            sortByStock={this.sortByStock}
-            sortByRate={this.sortByRate}
+            onAddLike={this.addLike}
+            onDeleteMovie={this.deleteMovie}
+            onSort={this.handleSort}
           />
           <Paginator
             numOfPages={numberOfPages(filtered.length, ITEMS_BY_PAGE)}
