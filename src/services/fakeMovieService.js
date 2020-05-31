@@ -88,7 +88,49 @@ const movies = [
     genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
     numberInStock: 5,
     dailyRentalRate: 4.5
-  }
+  },
+  {
+    _id: "5b2115986b7f6fbccd47181e",
+    title: "Lion",
+    genre: { _id: "5b21ca3eeb7f6fbccd471820", name: "Thriller" },
+    numberInStock: 7,
+    dailyRentalRate: 4.5
+  },
+  {
+    _id: "5b21caahsjif6fbccd47181f",
+    title: "Code Da Vinci",
+    genre: { _id: "5b21ca3eeb7f6fbccd471820", name: "Thriller" },
+    numberInStock: 4,
+    dailyRentalRate: 3.9
+  },
+  {
+    _id: "5b21ca3eeb7f6fbccdqys6e",
+    title: "Angels & Demonds",
+    genre: { _id: "5b21ca3eeb7f6fbccd471820", name: "Thriller" },
+    numberInStock: 7,
+    dailyRentalRate: 4.7
+  },
+  {
+    _id: "5b21ca3eeb7f6fbccd05wk1f",
+    title: "Inception",
+    genre: { _id: "5b21ca3eeb7f6fbccd471820", name: "Thriller" },
+    numberInStock: 4,
+    dailyRentalRate: 5.0
+  },
+  {
+    _id: "1251ca3eeb7f6fbccdqys6e",
+    title: "V for Vendetta",
+    genre: { _id: "5b21ca3eeb7f6fbccd471820", name: "Thriller" },
+    numberInStock: 9,
+    dailyRentalRate: 4.7
+  },
+  {
+    _id: "99ahsj3eeb7f6fbccd05wk1f",
+    title: "Colateral",
+    genre: { _id: "5b21ca3eeb7f6fbccd471820", name: "Thriller" },
+    numberInStock: 8,
+    dailyRentalRate: 5.0
+  },
 ];
 
 export function getMovies() {
