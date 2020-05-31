@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAC;EACF,UAAU,EAAE,IAAI;EAChB,UAAU,EAAE,QAAQ;CAIvB;;AAND,AAGI,KAHC,CAGD,KAAK,CAAC,EAAE,CAAC;EACL,MAAM,EAAE,OAAO;CAClB",
+    "sources": [
+        "movies-table.scss"
+    ],
+    "names": [],
+    "file": "movies-table.css"
+}

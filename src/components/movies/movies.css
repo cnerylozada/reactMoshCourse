@@ -1,21 +1,4 @@
 .movieMessage {
   font-weight: bold;
 }
-
-table {
-  margin-top: 1rem;
-  text-align: 'center';
-}
-
-table thead th {
-  cursor: pointer;
-}
-
-.moviesWithData {
-  display: block;
-}
-
-.moviesWithNoData {
-  display: none;
-}
 /*# sourceMappingURL=movies.css.map */

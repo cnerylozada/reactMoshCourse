@@ -6,6 +6,7 @@ import { numberOfPages, ITEMS_BY_PAGE, showItemsByPage } from '../../utils/numbe
 import { getGenres } from '../../services/fakeGenreService';
 import ListGroup from '../../_commons/list-group/list-group';
 import Like from '../../_commons/like/like';
+import MoviesTable from '../movies-table/movies-table';
 class Movies extends Component {
   state = {
     movies: [],
@@ -94,41 +95,15 @@ class Movies extends Component {
           <span className="movieMessage">
             {this.displayMovieMessage(filtered.length)}
           </span>
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col" onClick={this.sortByTitle}>Title</th>
-                <th scope="col" onClick={this.sortByGenre}>Genre</th>
-                <th scope="col" onClick={this.sortByStock}>Stock</th>
-                <th scope="col" onClick={this.sortByRate}>Rate</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {moviesByPage.map((_, index) => {
-                return (
-                  <tr key={index}>
-                    <th scope="row">{index + 1}</th>
-                    <td>{_.title}</td>
-                    <td>{_.genre.name}</td>
-                    <td>{_.numberInStock}</td>
-                    <td>{_.dailyRentalRate}</td>
-                    <td>
-                      <Like movie={_} onLike={this.addLike} />
-                    </td>
-                    <td>
-                      <button onClick={() => { this.deleteMovie(_._id) }}
-                        type="button" className="btn btn-danger">
-                        Delete
-                    </button>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
+          <MoviesTable 
+            moviesByPage={moviesByPage}
+            OnAddLike={this.addLike}
+            OnDeleteMovie={this.deleteMovie}
+            sortByTitle={this.sortByTitle} 
+            sortByGenre={this.sortByGenre}
+            sortByStock={this.sortByStock}
+            sortByRate={this.sortByRate}
+          />
           <Paginator
             numOfPages={numberOfPages(filtered.length, ITEMS_BY_PAGE)}
             currentPage={this.state.currentPage}

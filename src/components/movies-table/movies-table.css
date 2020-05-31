@@ -1,0 +1,9 @@
+table {
+  margin-top: 1rem;
+  text-align: 'center';
+}
+
+table thead th {
+  cursor: pointer;
+}
+/*# sourceMappingURL=movies-table.css.map */

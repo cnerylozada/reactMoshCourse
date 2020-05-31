@@ -2,8 +2,8 @@
     "version": 3,
     "mappings": "AAAA,AACI,WADO,CACP,CAAC,CAAC;EACE,MAAM,EAAE,OAAO;CAClB",
     "sources": [
-        "genres.scss"
+        "list-group.scss"
     ],
     "names": [],
-    "file": "genres.css"
+    "file": "list-group.css"
 }
