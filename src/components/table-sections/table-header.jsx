@@ -14,8 +14,12 @@ class TableHeader extends Component {
         <tr>
           <th scope="col">#</th>
           {this.props.tableHeaderFields.map((_, i) => {
-            return <th scope="col" key={i} onClick={() => this.raiseSort(_.path)}>
-              {_.label}</th>
+            return (
+              <th scope="col" key={i}
+                onClick={() => this.raiseSort(_.path)}>
+                {_.label}
+              </th>
+            );
           })}
         </tr>
       </thead>
