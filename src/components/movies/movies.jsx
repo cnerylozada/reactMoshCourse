@@ -13,7 +13,7 @@ class Movies extends Component {
     genres: [],
     currentPage: 0,
     genderSelected: 'All Genres',
-    sorting: { field: 'title', order: 'asc' }
+    sortColumn: { field: 'title', order: 'asc' }
   }
 
   componentDidMount() {
@@ -55,17 +55,13 @@ class Movies extends Component {
     this.setState({ currentPage: index });
   }
 
-  handleSort = fieldSelected => {
-    if ({ ...this.state }.sorting.order === 'asc') {
-      this.setState({ sorting: { field: fieldSelected, order: 'desc' } });
-    } else {
-      this.setState({ sorting: { field: fieldSelected, order: 'asc' } });
-    }
+  handleSort = sortColumn => {
+    this.setState({ sortColumn });
   };
 
   render() {
     const { genres, genderSelected, currentGenderIndex,
-      movies: allMovies, sorting, currentPage } = this.state;
+      movies: allMovies, sortColumn: sorting, currentPage } = this.state;
 
     const filtered = genderSelected !== 'All Genres' ?
       allMovies.filter(_ => _.genre.name === genderSelected)
@@ -89,6 +85,7 @@ class Movies extends Component {
             moviesByPage={moviesByPage}
             onAddLike={this.addLike}
             onDeleteMovie={this.deleteMovie}
+            sortColumn={this.state.sortColumn}
             onSort={this.handleSort}
           />
           <Paginator
