@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Movies from '../movies/movies';
 import './container.css';
+import NavBar from '../navbar/navbar';
 const Container = () => {
   return (
     <div className="container">
-      <h1 className="display-4">Movies</h1>
+      <NavBar />
       <div className="row">
         <Movies></Movies>
       </div>

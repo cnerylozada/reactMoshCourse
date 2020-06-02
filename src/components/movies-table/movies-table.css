@@ -6,4 +6,9 @@ table {
 table thead th {
   cursor: pointer;
 }
+
+table thead th i {
+  display: inline-block;
+  margin-left: 5px;
+}
 /*# sourceMappingURL=movies-table.css.map */
