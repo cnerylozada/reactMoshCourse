@@ -3,5 +3,9 @@ table {
     text-align: 'center';
     thead th {
         cursor: pointer;
+        i {
+            display: inline-block;
+            margin-left: 5px;
+        }
     }
 }

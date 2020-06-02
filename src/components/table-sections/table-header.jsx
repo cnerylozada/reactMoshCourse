@@ -17,7 +17,7 @@ class TableHeader extends Component {
             return (
               <th scope="col" key={i}
                 onClick={() => this.raiseSort(_.path)}>
-                {_.label}
+                {_.label} <i class="fa fa-angle-down"></i>
               </th>
             );
           })}
