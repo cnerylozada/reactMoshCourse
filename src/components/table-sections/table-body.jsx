@@ -1,31 +1,23 @@
 import React, { Component } from 'react';
-import Like from '../../_commons/like/like';
-
+import _ from 'lodash';
 class TableBody extends Component {
+
+  renderCell = (item, column) => {
+    if (column.functionality) return column.functionality(item);
+    return _.get(item, column.path);
+  }
+
   render() {
-    const { rowsByPage, deleteRow, onAddLike, tableHeaderFields } = this.props;
+    const { rowsDataByPage, tableHeaderFields } = this.props;
     return (
       <tbody>
-        {rowsByPage.map((_, index) => {
-          return (
-            <tr key={index}>
-              <th scope="row">{index + 1}</th>
-              <td>{_.title}</td>
-              <td>{_.genre.name}</td>
-              <td>{_.numberInStock}</td>
-              <td>{_.dailyRentalRate}</td>
-              <td>
-                <Like movie={_} onLike={onAddLike} />
-              </td>
-              <td>
-                <button onClick={() => { deleteRow(_._id) }}
-                  type="button" className="btn btn-danger">
-                  Delete
-              </button>
-              </td>
-            </tr>
-          )
-        })}
+        {rowsDataByPage.map((item, index) =>
+          <tr>
+            <th scope="row">{index + 1}</th>
+            {tableHeaderFields.map(column =>
+              <td>{this.renderCell(item, column)}</td>)}
+          </tr>
+        )}
       </tbody>
     );
   }
