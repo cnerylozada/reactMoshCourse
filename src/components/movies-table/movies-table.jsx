@@ -3,11 +3,18 @@ import './movies-table.css';
 import Like from '../../_commons/like/like';
 import TableHeader from '../table-sections/table-header';
 import TableBody from '../table-sections/table-body';
+import { Link } from 'react-router-dom';
 
 class MoviesTable extends Component {
 
   tableHeaderFields = [
-    { path: 'title', label: 'Title' },
+    {
+      path: 'title', label: 'Title',
+      functionality: movie => (
+        <Link to={`/movies/${movie._id}`}>
+          {movie.title}
+        </Link>)
+    },
     { path: 'genre.name', label: 'Genre' },
     { path: 'numberInStock', label: 'Stock' },
     { path: 'dailyRentalRate', label: 'Rate' },
