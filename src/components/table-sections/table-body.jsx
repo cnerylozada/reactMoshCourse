@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import { Link } from 'react-router-dom';
 class TableBody extends Component {
 
   renderCell = (item, column) => {
@@ -14,8 +15,16 @@ class TableBody extends Component {
         {rowsDataByPage.map((item, index) =>
           <tr>
             <th scope="row">{index + 1}</th>
-            {tableHeaderFields.map(column =>
-              <td>{this.renderCell(item, column)}</td>)}
+            {tableHeaderFields.map(column => {
+              const dataByField = column.path === 'title' ?
+                <td>
+                  <Link to={`/movies/${_.get(item, '_id')}`}>
+                    {this.renderCell(item, column)}
+                  </Link>
+                </td>
+                : <td>{this.renderCell(item, column)}</td>;
+              return dataByField;
+            })}
           </tr>
         )}
       </tbody>

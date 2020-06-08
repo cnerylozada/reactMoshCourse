@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 import Container from './components/container/container';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
-  <Container />,
+  <BrowserRouter>
+    <Container />
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
