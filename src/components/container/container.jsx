@@ -17,8 +17,8 @@ const Container = () => {
           <Route path="/customers" component={Customers} />
           <Route path="/rentals" component={Rentals} />
           <Route path="/movies/:id" component={MoviesDetail} />
-          <Route path="/movies" exact component={Movies} />
           <Route path="/not-found" component={NotFound} />
+          <Route path="/movies" exact component={Movies} />
           <Redirect to="/not-found" />
         </Switch>
       </div>
