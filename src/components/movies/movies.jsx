@@ -13,7 +13,7 @@ class Movies extends Component {
     genres: [],
     currentPage: 0,
     genderSelected: 'All Genres',
-    sortColumn: { field: 'title', order: 'asc' }
+    sortColumn: { field: 'title', order: 'asc'}
   }
 
   componentDidMount() {
@@ -56,6 +56,7 @@ class Movies extends Component {
   }
 
   handleSort = sortColumn => {
+    console.log(sortColumn.icon)
     this.setState({ sortColumn });
   };
 
