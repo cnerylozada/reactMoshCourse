@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './login.css';
+import Input from '../../_commons/input/input';
 
 class Login extends Component {
   state = {
@@ -9,12 +10,12 @@ class Login extends Component {
     }
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     console.log(this.state);
   }
 
-  handleChange = ({currentTarget:input}) => {
+  handleChange = ({ currentTarget: input }) => {
     const account = { ...this.state.account };
     account[input.name] = input.value;
     this.setState({ account });
@@ -25,16 +26,11 @@ class Login extends Component {
     return (
       <div className="col-sm-6">
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label>Username</label>
-            <input type="text" autoFocus className="form-control" name="username"
-              value={account.username} onChange={this.handleChange} />
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input type="password" className="form-control" name="password"
-              value={account.password} onChange={this.handleChange} />
-          </div>
+          <Input label='Username' type='text' onChange={this.handleChange}
+            name='username' value={account.username} />
+          <Input label='Password' type='password' onChange={this.handleChange}
+            name='password' value={account.password} />
+            
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
       </div>

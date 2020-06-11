@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getMovies, deleteMovie as deleteFromDb } from '../../services/fakeMovieService';
 import './movies.css';
-import Paginator from '../paginator/paginator';
+import Paginator from '../../_commons/paginator/paginator';
 import { numberOfPages, ITEMS_BY_PAGE, showItemsByPage } from '../../utils/numberOfPages';
 import { getGenres } from '../../services/fakeGenreService';
 import ListGroup from '../../_commons/list-group/list-group';
@@ -56,7 +56,6 @@ class Movies extends Component {
   }
 
   handleSort = sortColumn => {
-    console.log(sortColumn.icon)
     this.setState({ sortColumn });
   };
 
