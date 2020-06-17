@@ -22,6 +22,7 @@ const Login = (props) => {
 
   return (
     <div className="col-sm-6">
+      <h4 className="display-4">Login</h4>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
