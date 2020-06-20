@@ -12,8 +12,10 @@ const RegisterForm = (props) => {
   };
 
   const validationSchema = Yup.object({
-    username: Yup.string().required('Username is required'),
-    password: Yup.string().required('Password is required'),
+    username: Yup.string().required('Username is required')
+      .email('Username must be a valid email'),
+    password: Yup.string().required('Password is required')
+      .min(5, 'Password length must be at least 5 chars long'),
     name: Yup.string().required('Name is required'),
   })
 
@@ -28,14 +30,20 @@ const RegisterForm = (props) => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={onSubmit}>
-        <Form>
-          <Input label='Username' name='username' type='text' />
-          <Input label='Password' name='password' type='password' />
-          <Input label='Name' name='name' type='text' />
-          
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </Form>
+        onSubmit={onSubmit}
+        validateOnMount>
+        {formik => {
+          return (
+            <Form>
+              <Input label='Username' name='username' type='text' />
+              <Input label='Password' name='password' type='password' />
+              <Input label='Name' name='name' type='text' />
+              
+              <button type="submit" disabled={!formik.isValid}
+                 className="btn btn-primary">Submit</button>
+            </Form>
+          )
+        }}
       </Formik>
     </div>
   );
