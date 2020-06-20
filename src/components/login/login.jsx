@@ -26,14 +26,20 @@ const Login = (props) => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={onSubmit}>
-        <Form>
-          <Input label='Username' name='username' type='text' />
-          <Input label='Password' placeholder='Enter a password'
-            name='password' type='password' />
+        onSubmit={onSubmit}
+        validateOnMount>
+        {formik => {
+          return (
+            <Form>
+              <Input label='Username' name='username' type='text' />
+              <Input label='Password' placeholder='Enter a password'
+                name='password' type='password' />
 
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </Form>
+              <button type="submit" disabled={!formik.isValid}
+                className="btn btn-primary">Submit</button>
+            </Form>
+          )
+        }}
       </Formik>
     </div>
   );
