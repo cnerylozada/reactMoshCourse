@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './movies-detail.css';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Input from '../../_commons/input/input';
 import { getMovie } from '../../services/fakeMovieService';
+import { genres } from '../../services/fakeGenreService';
 class MoviesDetail extends Component {
   state = {
     title: '',
@@ -11,7 +12,12 @@ class MoviesDetail extends Component {
     rate: 1
   }
 
+  dropdownOptions = [
+    { _id: '000', name: 'Select an option' },
+  ]
+
   componentDidMount() {
+    this.dropdownOptions = [... this.dropdownOptions, ...genres]
     const movieId = this.props.match.params.id;
     const movie = getMovie(movieId);
     if (!!movie) {
@@ -52,17 +58,36 @@ class MoviesDetail extends Component {
           {formik => {
             return (
               <Form>
-                <Input label='Title' name='title' type='text' />
-                <Input label='Number in stock' name='numberInStock' type='number' />
-                <Input label='Rate' name='rate' type='number' />
+                <Input label="Title" name="title" type="text" />
+                <Input
+                  label="Number in stock"
+                  name="numberInStock"
+                  type="number"
+                />
+                <Input label="Rate" name="rate" type="number" />
 
-                <button disabled={!formik.isValid}
-                  type="button" className="btn btn-primary">
+                <div className="form-group">
+                  <label>Options</label>
+                  <Field as="select" className="form-control" name="options">
+                    {this.dropdownOptions.map((_) => {
+                      return (
+                        <option key={_._id} value={_._id}>
+                          {_.name}
+                        </option>
+                      );
+                    })}
+                  </Field>
+                </div>
+
+                <button
+                  disabled={!formik.isValid}
+                  type="button"
+                  className="btn btn-primary"
+                >
                   Save Movie
                 </button>
-
               </Form>
-            )
+            );
           }}
         </Formik>
       </div>

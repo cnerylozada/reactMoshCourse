@@ -4,7 +4,7 @@ import Input from '../../_commons/input/input';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
-const Login = (props) => {
+const Login = () => {
   const initialValues = {
     username: 'cnerylozada',
     password: ''
