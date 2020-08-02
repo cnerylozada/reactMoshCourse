@@ -1,82 +1,76 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import "./movies-detail.css";
 import { Formik, Form } from "formik";
 import Input from "../../_commons/input/input";
 import { getMovie } from "../../services/fakeMovieService";
-import { genres } from "../../services/fakeGenreService";
-import Select from "../../_commons/select/select";
 import { movieValidation } from "./movieValidation";
-class MoviesDetail extends Component {
-  state = {
+import { getGenres } from "../../services/fakeGenreService";
+import Select from "../../_commons/select/select";
+
+const MoviesDetail = (props) => {
+  const [movieForm, setMovieForm] = useState({
+    id: "",
     title: "",
-    numberInStock: 1,
+    stock: 1,
     rate: 1,
-    genre: "000",
-  };
+    genreId: "",
+  });
+  const [genres, setGenres] = useState([
+    { _id: "000", name: "Select a genre" },
+  ]);
 
-  dropdownOptions = [{ _id: "000", name: "Select an option" }];
+  useEffect(() => {
+    setGenres((_) => [..._, ...getGenres()]);
+  }, []);
 
-  componentDidMount() {
-    this.dropdownOptions = [...this.dropdownOptions, ...genres];
-    const movieId = this.props.match.params.id;
+  useEffect(() => {
+    const movieId = props.match.params.id;
     const movie = getMovie(movieId);
     if (!!movie) {
-      this.setState({
+      setMovieForm({
+        id: movie._id,
         title: movie.title,
-        numberInStock: movie.numberInStock,
+        stock: movie.numberInStock,
         rate: movie.dailyRentalRate,
-        genre: this.dropdownOptions.find((_) => _._id === movie.genre._id)._id,
+        genreId: movie.genre._id,
       });
     }
-  }
+  }, [props.match.params.id]);
 
-  handleSave = (values) => {
+  const onSubmit = (values) => {
     console.log(values);
-    // this.props.history.push('/movies');
   };
 
-  render() {
-    console.log(this.state.title);
-    return (
-      <div className="col-sm-6">
-        <h4 className="display-4">Movie Form: {this.state.title}</h4>
-        <Formik
-          enableReinitialize
-          initialValues={this.state}
-          validationSchema={movieValidation}
-          onSubmit={this.handleSave}
-          validateOnMount
-        >
-          {(formik) => {
-            return (
-              <Form>
-                <Input label="Title" name="title" type="text" />
-                <Input
-                  label="Number in stock"
-                  name="numberInStock"
-                  type="number"
-                />
-                <Input label="Rate" name="rate" type="number" />
-                <Select
-                  label="Genre"
-                  name="genre"
-                  options={this.dropdownOptions}
-                />
-
-                <button
-                  disabled={!formik.isValid}
-                  type="button"
-                  className="btn btn-primary"
-                >
-                  Save Movie
-                </button>
-              </Form>
-            );
-          }}
-        </Formik>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="col-sm-6">
+      <h4 className="display-4">Login</h4>
+      <Formik
+        initialValues={movieForm}
+        validationSchema={movieValidation}
+        onSubmit={onSubmit}
+        validateOnMount
+        enableReinitialize
+      >
+        {(formik) => {
+          return (
+            <Form>
+              <Input label="Title" name="title" type="text" />
+              <Input label="Number in stock" name="stock" type="number" />
+              <Input label="Rate" name="rate" type="number" />
+              <Select label="Genres" name="genreId" options={genres}></Select>
+              <button
+                type="submit"
+                disabled={!formik.isValid}
+                className="btn btn-primary"
+              >
+                Submit
+              </button>
+            </Form>
+          );
+        }}
+      </Formik>
+    </div>
+  );
+};
 
 export default MoviesDetail;

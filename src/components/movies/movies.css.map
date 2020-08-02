@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,aAAa,CAAC;EACV,WAAW,EAAE,IAAI;CACpB",
+    "mappings": "AAAA,AAAA,aAAa,CAAC;EACZ,OAAO,EAAE,KAAK;EACd,WAAW,EAAE,IAAI;EACjB,UAAU,EAAE,IAAI;CACjB",
     "sources": [
         "movies.scss"
     ],

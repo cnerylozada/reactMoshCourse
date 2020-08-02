@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
-import './navbar.css';
-import { NavLink } from 'react-router-dom';
+import React, { Component } from "react";
+import "./navbar.css";
+import { NavLink } from "react-router-dom";
 
 class NavBar extends Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="#">React Movies</a>
+        <a className="navbar-brand" href="/#">
+          React Movies
+        </a>
         <button className="navbar-toggler" type="button">
           <span className="navbar-toggler-icon"></span>
         </button>

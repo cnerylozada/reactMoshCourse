@@ -1,22 +1,34 @@
-import React from 'react';
-import './list-group.css';
+import React from "react";
+import "./list-group.css";
 
-const ListGroup =
-  ({ items, valueProperty, textProperty, onFilter, currentGenderIndex }) => {
-    const itemStyle = "list-group-item list-group-item-action";
-    return (
-      <div className="list-group">
-        {items.map((_, i) => <a key={_[valueProperty]}
+const ListGroup = ({
+  items,
+  valueProperty,
+  textProperty,
+  onFilter,
+  currentGenderIndex,
+}) => {
+  const itemStyle = "list-group-item list-group-item-action";
+  return (
+    <div className="list-group">
+      {items.map((_, i) => (
+        <a
+          key={_[valueProperty]}
+          href="/#"
           onClick={() => onFilter(_.name, i)}
-          className={currentGenderIndex === i ? itemStyle + " active" : itemStyle}>
+          className={
+            currentGenderIndex === i ? itemStyle + " active" : itemStyle
+          }
+        >
           {_[textProperty]}
-        </a>)}
-      </div>
-    );
-  }
+        </a>
+      ))}
+    </div>
+  );
+};
 
 ListGroup.defaultProps = {
   valueProperty: "_id",
-  textProperty: "name"
-}
+  textProperty: "name",
+};
 export default ListGroup;

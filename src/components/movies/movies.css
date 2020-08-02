@@ -1,4 +1,6 @@
 .movieMessage {
+  display: block;
   font-weight: bold;
+  margin-top: 1rem;
 }
 /*# sourceMappingURL=movies.css.map */

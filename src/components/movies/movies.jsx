@@ -1,71 +1,88 @@
-import React, { Component } from 'react';
-import { getMovies, deleteMovie as deleteFromDb } from '../../services/fakeMovieService';
-import './movies.css';
-import Paginator from '../../_commons/paginator/paginator';
-import { numberOfPages, ITEMS_BY_PAGE, showItemsByPage } from '../../utils/numberOfPages';
-import { getGenres } from '../../services/fakeGenreService';
-import ListGroup from '../../_commons/list-group/list-group';
-import MoviesTable from '../movies-table/movies-table';
-import _ from 'lodash';
+import React, { Component } from "react";
+import {
+  getMovies,
+  deleteMovie as deleteFromDb,
+} from "../../services/fakeMovieService";
+import "./movies.css";
+import Paginator from "../../_commons/paginator/paginator";
+import {
+  numberOfPages,
+  ITEMS_BY_PAGE,
+  showItemsByPage,
+} from "../../utils/numberOfPages";
+import { getGenres } from "../../services/fakeGenreService";
+import ListGroup from "../../_commons/list-group/list-group";
+import MoviesTable from "../movies-table/movies-table";
+import _ from "lodash";
+import { Link } from "react-router-dom";
 class Movies extends Component {
   state = {
     movies: [],
     genres: [],
     currentPage: 0,
-    genderSelected: 'All Genres',
-    sortColumn: { field: 'title', order: 'asc'}
-  }
+    genderSelected: "All Genres",
+    sortColumn: { field: "title", order: "asc" },
+  };
 
   componentDidMount() {
     this.setState({
       movies: getMovies(),
-      genres: [{ _id: '0', name: 'All Genres' }, ...getGenres()]
-    })
+      genres: [{ _id: "0", name: "All Genres" }, ...getGenres()],
+    });
   }
 
-  displayMovieMessage = numOfItems => {
-    return !!numOfItems ?
-      `Showing ${numOfItems}  movies in the database`
-      : 'There are no movies in database';
-  }
+  displayMovieMessage = (numOfItems) => {
+    return !!numOfItems
+      ? `Showing ${numOfItems}  movies in the database`
+      : "There are no movies in database";
+  };
 
   filterByGender = (genderName, index) => {
     this.setState({
       currentPage: 0,
       currentGenderIndex: index,
-      genderSelected: genderName
+      genderSelected: genderName,
     });
-  }
+  };
 
-  addLike = movie => {
+  addLike = (movie) => {
     movie.like = !movie.like;
-    const movies = this.state.movies.map(_ => {
-      return _._id === movie._id ? movie : _
-    })
+    const movies = this.state.movies.map((_) => {
+      return _._id === movie._id ? movie : _;
+    });
     this.setState({ movies });
-    console.log(!!movie.like ? `You like ${movie.title}` : `You dont like ${movie.title}`);
-  }
+    console.log(
+      !!movie.like ? `You like ${movie.title}` : `You dont like ${movie.title}`
+    );
+  };
 
-  deleteMovie = movieId => {
+  deleteMovie = (movieId) => {
     deleteFromDb(movieId);
-    this.setState({ movies: getMovies() })
-  }
+    this.setState({ movies: getMovies() });
+  };
 
-  handlePageChange = index => {
+  handlePageChange = (index) => {
     this.setState({ currentPage: index });
-  }
+  };
 
-  handleSort = sortColumn => {
+  handleSort = (sortColumn) => {
     this.setState({ sortColumn });
   };
 
   render() {
-    const { genres, genderSelected, currentGenderIndex,
-      movies: allMovies, sortColumn: sorting, currentPage } = this.state;
+    const {
+      genres,
+      genderSelected,
+      currentGenderIndex,
+      movies: allMovies,
+      sortColumn: sorting,
+      currentPage,
+    } = this.state;
 
-    const filtered = genderSelected !== 'All Genres' ?
-      allMovies.filter(_ => _.genre.name === genderSelected)
-      : allMovies;
+    const filtered =
+      genderSelected !== "All Genres"
+        ? allMovies.filter((_) => _.genre.name === genderSelected)
+        : allMovies;
     const moviesSorted = _.orderBy(filtered, [sorting.field], [sorting.order]);
     const moviesByPage = showItemsByPage(moviesSorted, currentPage);
 
@@ -75,9 +92,15 @@ class Movies extends Component {
           <ListGroup
             items={genres}
             onFilter={this.filterByGender}
-            currentGenderIndex={currentGenderIndex} />
+            currentGenderIndex={currentGenderIndex}
+          />
         </div>
         <div className="col-sm-8">
+          <Link to="/movies/0">
+            <button type="button" className="btn btn-primary">
+              New Movie
+            </button>
+          </Link>
           <span className="movieMessage">
             {this.displayMovieMessage(filtered.length)}
           </span>
@@ -91,10 +114,11 @@ class Movies extends Component {
           <Paginator
             numOfPages={numberOfPages(filtered.length, ITEMS_BY_PAGE)}
             currentPage={currentPage}
-            onPageChange={this.handlePageChange} />
+            onPageChange={this.handlePageChange}
+          />
         </div>
       </React.Fragment>
-    )
+    );
   }
 }
 
