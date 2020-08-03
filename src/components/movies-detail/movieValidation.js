@@ -9,6 +9,9 @@ export const movieValidation = Yup.object({
     .required("Number in stock is required")
     .moreThan(0, "Minimum stock number is 1 unit")
     .lessThan(101, "Maximum stock number are 100 units"),
-  rate: Yup.number().required("Rate is required"),
+  rate: Yup.number()
+    .required("Rate is required")
+    .moreThan(0, "Rate must be more than 0")
+    .lessThan(6, "Rate must be less than 6"),
   genreId: Yup.string().required("Genre is required"),
 });
