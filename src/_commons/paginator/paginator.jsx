@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./paginator.css";
 
 const Paginator = ({ numOfPages, currentPage, onPageChange }) => {
   const pages = [...Array(numOfPages).keys()];
@@ -16,13 +17,9 @@ const Paginator = ({ numOfPages, currentPage, onPageChange }) => {
                 _ === currentPage ? buttonStyle + " active" : buttonStyle
               }
             >
-              <a
-                className="page-link"
-                href="/#"
-                onClick={() => onPageChange(_)}
-              >
+              <span className="page-link" onClick={() => onPageChange(_)}>
                 {_ + 1}
-              </a>
+              </span>
             </li>
           );
         })}

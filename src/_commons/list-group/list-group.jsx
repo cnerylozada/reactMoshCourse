@@ -12,16 +12,15 @@ const ListGroup = ({
   return (
     <div className="list-group">
       {items.map((_, i) => (
-        <a
+        <span
           key={_[valueProperty]}
-          href="/#"
           onClick={() => onFilter(_.name, i)}
           className={
             currentGenderIndex === i ? itemStyle + " active" : itemStyle
           }
         >
           {_[textProperty]}
-        </a>
+        </span>
       ))}
     </div>
   );

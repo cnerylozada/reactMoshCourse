@@ -1,1 +1,4 @@
-/* No CSS *//*# sourceMappingURL=paginator.css.map */
+.page-link:hover {
+  cursor: pointer;
+}
+/*# sourceMappingURL=paginator.css.map */
