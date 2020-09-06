@@ -10,7 +10,7 @@ import {
   ITEMS_BY_PAGE,
   showItemsByPage,
 } from "../../utils/numberOfPages";
-import { getGenres } from "../../services/fakeGenreService";
+import genresService from "../../services/genres.service";
 import ListGroup from "../../_commons/list-group/list-group";
 import MoviesTable from "../movies-table/movies-table";
 import _ from "lodash";
@@ -27,8 +27,12 @@ class Movies extends Component {
   componentDidMount() {
     this.setState({
       movies: getMovies(),
-      genres: [{ _id: "0", name: "All Genres" }, ...getGenres()],
     });
+    genresService
+      .get()
+      .then((_) =>
+        this.setState({ genres: [{ _id: "0", name: "All Genres" }, ..._] })
+      );
   }
 
   displayMovieMessage = (numOfItems) => {
