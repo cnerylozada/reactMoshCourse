@@ -4,8 +4,15 @@ export const numberOfPages = (totalOfItems, itemsByPage) => {
     : Math.floor(totalOfItems / itemsByPage) + 1;
 };
 
-export const capitalize = (string) => {
+export const capitalizeString = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+};
+
+export const capitalizeText = (text) => {
+  return text
+    .split(" ")
+    .map((_) => capitalizeString(_))
+    .join(" ");
 };
 
 export const showItemsByPage = (items, index) => {

@@ -11,6 +11,7 @@ import {
   showItemsByPage,
 } from "../../utils/numberOfPages";
 import genresService from "../../services/genres.service";
+import moviesService from "../../services/movies.service";
 import ListGroup from "../../_commons/list-group/list-group";
 import MoviesTable from "../movies-table/movies-table";
 import _ from "lodash";
@@ -28,6 +29,10 @@ class Movies extends Component {
     this.setState({
       movies: getMovies(),
     });
+    // moviesService.get().then((_) => this.setState({ movies: [..._] }));
+    moviesService
+      .getById("5f54e686821bd0037a3b59ba")
+      .then((_) => console.log(_));
     genresService
       .get()
       .then((_) =>
