@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./movies-detail.css";
 import { Formik, Form } from "formik";
 import Input from "../../_commons/input/input";
-import { getMovie } from "../../services/fakeMovieService";
 import { movieValidation } from "./movieValidation";
-import { getGenres } from "../../services/fakeGenreService";
 import Select from "../../_commons/select/select";
+import moviesService from "../../services/movies.service";
+import genresService from "../../services/genres.service";
 
 const MoviesDetail = (props) => {
   const [movieForm, setMovieForm] = useState({
@@ -20,21 +20,22 @@ const MoviesDetail = (props) => {
   ]);
 
   useEffect(() => {
-    setGenres((_) => [..._, ...getGenres()]);
+    genresService.get().then((genres) => setGenres((_) => [..._, ...genres]));
   }, []);
 
   useEffect(() => {
     const movieId = props.match.params.id;
-    const movie = getMovie(movieId);
-    if (!!movie) {
-      setMovieForm({
-        id: movie._id,
-        title: movie.title,
-        stock: movie.numberInStock,
-        rate: movie.dailyRentalRate,
-        genreId: movie.genre._id,
-      });
-    }
+    moviesService.getById(movieId).then((movie) => {
+      if (!!movie) {
+        setMovieForm({
+          id: movie._id,
+          title: movie.title,
+          stock: movie.numberInStock,
+          rate: movie.dailyRentalRate,
+          genreId: movie.genre._id,
+        });
+      }
+    });
   }, [props.match.params.id]);
 
   const onSubmit = (values) => {

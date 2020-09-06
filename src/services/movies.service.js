@@ -13,7 +13,11 @@ const getMovies = () => {
 };
 
 const getMovieById = (id) => {
-  return axios.get(`${apiUrl}/movies/${id}`);
+  return axios.get(`${apiUrl}/movies/${id}`).then(({ data: _ }) => ({
+    ..._,
+    title: capitalizeText(_.title),
+    genre: { ..._.genre, name: capitalizeString(_.genre.name) },
+  }));
 };
 
 export default {

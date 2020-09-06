@@ -25,19 +25,13 @@ class Movies extends Component {
     sortColumn: { field: "title", order: "asc" },
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    const genres = await genresService.get();
+    const movies = await moviesService.get();
     this.setState({
-      movies: getMovies(),
+      movies,
+      genres: [{ _id: "0", name: "All Genres" }, ...genres],
     });
-    // moviesService.get().then((_) => this.setState({ movies: [..._] }));
-    moviesService
-      .getById("5f54e686821bd0037a3b59ba")
-      .then((_) => console.log(_));
-    genresService
-      .get()
-      .then((_) =>
-        this.setState({ genres: [{ _id: "0", name: "All Genres" }, ..._] })
-      );
   }
 
   displayMovieMessage = (numOfItems) => {
