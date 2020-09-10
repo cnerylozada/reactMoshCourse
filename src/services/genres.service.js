@@ -1,9 +1,9 @@
-import axios from "axios";
 import { apiUrl } from "../utils/database.connect";
 import { capitalizeString } from "../utils/numberOfPages";
+import httpService from "./httpService";
 
 const getGenres = () => {
-  return axios
+  return httpService
     .get(`${apiUrl}/genres`)
     .then(({ data: _ }) =>
       _.map((genre) => ({ ...genre, name: capitalizeString(genre.name) }))

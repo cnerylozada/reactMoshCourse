@@ -1,8 +1,4 @@
 import React, { Component } from "react";
-import {
-  getMovies,
-  deleteMovie as deleteFromDb,
-} from "../../services/fakeMovieService";
 import "./movies.css";
 import Paginator from "../../_commons/paginator/paginator";
 import {
@@ -59,9 +55,14 @@ class Movies extends Component {
     );
   };
 
-  deleteMovie = (movieId) => {
-    deleteFromDb(movieId);
-    this.setState({ movies: getMovies() });
+  deleteMovie = async (movieId) => {
+    const movies = [...this.state.movies];
+    this.setState({ movies: movies.filter((_) => _._id !== movieId) });
+    try {
+      await moviesService.deleteById(movieId);
+    } catch (error) {
+      this.setState({ movies });
+    }
   };
 
   handlePageChange = (index) => {
