@@ -20,6 +20,14 @@ const getMovieById = (id) => {
   }));
 };
 
+const saveMovie = (movie) => {
+  return httpService.post(`${apiUrl}/movies`, movie);
+};
+
+const putMovie = (movie) => {
+  return httpService.put(`${apiUrl}/movies/${movie._id}`, movie);
+};
+
 const deleteMovieById = (id) => {
   return httpService.delete(`${apiUrl}/movies/${id}`);
 };
@@ -27,5 +35,7 @@ const deleteMovieById = (id) => {
 export default {
   get: getMovies,
   getById: getMovieById,
+  save: saveMovie,
+  put: putMovie,
   deleteById: deleteMovieById,
 };
