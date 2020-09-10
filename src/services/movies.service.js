@@ -20,7 +20,12 @@ const getMovieById = (id) => {
   }));
 };
 
+const deleteMovieById = (id) => {
+  return axios.delete(`${apiUrl}/movies/${id}`);
+};
+
 export default {
   get: getMovies,
   getById: getMovieById,
+  deleteById: deleteMovieById,
 };

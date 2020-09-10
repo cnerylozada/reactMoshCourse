@@ -44,7 +44,7 @@ const MoviesDetail = (props) => {
 
   return (
     <div className="col-sm-6">
-      <h4 className="display-4">Login</h4>
+      <h4 className="display-4">Movie Form</h4>
       <Formik
         initialValues={movieForm}
         validationSchema={movieValidation}
