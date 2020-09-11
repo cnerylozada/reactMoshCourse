@@ -11,6 +11,8 @@ import moviesService from "../../services/movies.service";
 import ListGroup from "../../_commons/list-group/list-group";
 import MoviesTable from "../movies-table/movies-table";
 import _ from "lodash";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 class Movies extends Component {
   state = {
@@ -62,6 +64,7 @@ class Movies extends Component {
       await moviesService.deleteById(movieId);
     } catch (error) {
       this.setState({ movies });
+      toast.error(error.response.data, { autoClose: 2500 });
     }
   };
 
@@ -92,6 +95,7 @@ class Movies extends Component {
 
     return (
       <React.Fragment>
+        <ToastContainer />
         <div className="col-sm-4">
           <ListGroup
             items={genres}

@@ -34,15 +34,19 @@ const MoviesDetail = (props) => {
     (async function () {
       const movieId = props.match.params.id;
       if (movieId !== "0") {
-        const movie = await moviesService.getById(movieId);
-        setButtonForm({ label: "Editar", isSaveOperation: false });
-        setMovieForm({
-          id: movie._id,
-          title: movie.title,
-          numberInStock: movie.numberInStock,
-          dailyRentalRate: movie.dailyRentalRate,
-          genreId: movie.genre._id,
-        });
+        try {
+          const movie = await moviesService.getById(movieId);
+          setButtonForm({ label: "Editar", isSaveOperation: false });
+          setMovieForm({
+            id: movie._id,
+            title: movie.title,
+            numberInStock: movie.numberInStock,
+            dailyRentalRate: movie.dailyRentalRate,
+            genreId: movie.genre._id,
+          });
+        } catch (error) {
+          props.history.replace("/not-found");
+        }
       }
     })();
   }, [props.match.params.id]);
@@ -51,6 +55,7 @@ const MoviesDetail = (props) => {
     !!buttonForm.isSaveOperation
       ? moviesService.save(values)
       : moviesService.put(values);
+    props.history.push("/movies");
   };
 
   return (
