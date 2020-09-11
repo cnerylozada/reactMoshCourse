@@ -25,7 +25,7 @@ const saveMovie = (movie) => {
 };
 
 const putMovie = (movie) => {
-  return httpService.put(`${apiUrl}/movies/${movie._id}`, movie);
+  return httpService.put(`${apiUrl}/movies/${movie.id}`, movie);
 };
 
 const deleteMovieById = (id) => {

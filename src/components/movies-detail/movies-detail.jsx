@@ -8,11 +8,15 @@ import moviesService from "../../services/movies.service";
 import genresService from "../../services/genres.service";
 
 const MoviesDetail = (props) => {
+  const [buttonForm, setButtonForm] = useState({
+    label: "Guardar",
+    isSaveOperation: true,
+  });
   const [movieForm, setMovieForm] = useState({
     id: "",
     title: "",
-    stock: 1,
-    rate: 1,
+    numberInStock: 1,
+    dailyRentalRate: 1,
     genreId: "",
   });
   const [genres, setGenres] = useState([
@@ -20,26 +24,33 @@ const MoviesDetail = (props) => {
   ]);
 
   useEffect(() => {
-    genresService.get().then((genres) => setGenres((_) => [..._, ...genres]));
+    (async function () {
+      const genres = await genresService.get();
+      setGenres((_) => [..._, ...genres]);
+    })();
   }, []);
 
   useEffect(() => {
-    const movieId = props.match.params.id;
-    moviesService.getById(movieId).then((movie) => {
-      if (!!movie) {
+    (async function () {
+      const movieId = props.match.params.id;
+      if (movieId !== "0") {
+        const movie = await moviesService.getById(movieId);
+        setButtonForm({ label: "Editar", isSaveOperation: false });
         setMovieForm({
           id: movie._id,
           title: movie.title,
-          stock: movie.numberInStock,
-          rate: movie.dailyRentalRate,
+          numberInStock: movie.numberInStock,
+          dailyRentalRate: movie.dailyRentalRate,
           genreId: movie.genre._id,
         });
       }
-    });
+    })();
   }, [props.match.params.id]);
 
   const onSubmit = (values) => {
-    console.log(values);
+    !!buttonForm.isSaveOperation
+      ? moviesService.save(values)
+      : moviesService.put(values);
   };
 
   return (
@@ -56,15 +67,19 @@ const MoviesDetail = (props) => {
           return (
             <Form>
               <Input label="Title" name="title" type="text" />
-              <Input label="Number in stock" name="stock" type="number" />
-              <Input label="Rate" name="rate" type="number" />
+              <Input
+                label="Number in stock"
+                name="numberInStock"
+                type="number"
+              />
+              <Input label="Rate" name="dailyRentalRate" type="number" />
               <Select label="Genres" name="genreId" options={genres}></Select>
               <button
                 type="submit"
                 disabled={!formik.isValid}
                 className="btn btn-primary"
               >
-                Submit
+                {buttonForm.label}
               </button>
             </Form>
           );
