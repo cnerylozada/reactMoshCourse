@@ -2,32 +2,41 @@ import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import Input from "../../_commons/input/input";
+import usersService from "../../services/users.service";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegisterForm = (props) => {
   const initialValues = {
-    username: "",
+    email: "",
     password: "",
     name: "",
   };
 
   const validationSchema = Yup.object({
-    username: Yup.string()
-      .required("Username is required")
-      .email("Username must be a valid email"),
+    email: Yup.string()
+      .required("Email is required")
+      .email("Enter a valid email"),
     password: Yup.string()
       .required("Password is required")
-      .min(5, "Password length must be at least 5 chars long"),
-    name: Yup.string()
-      .min(5, "Name must be has at least 5 chars")
-      .required("Name is required"),
+      .min(7, "Password length must be at least 7 chars long"),
   });
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values) => {
+    try {
+      await usersService.save({
+        email: values.email,
+        password: values.password,
+      });
+      props.history.push("/movies");
+    } catch (error) {
+      toast.error(error.response.data);
+    }
   };
 
   return (
     <div className="col-sm-6">
+      <ToastContainer />
       <h4 className="display-4">Register</h4>
 
       <Formik
@@ -39,9 +48,8 @@ const RegisterForm = (props) => {
         {(formik) => {
           return (
             <Form>
-              <Input label="Username" name="username" type="text" />
+              <Input label="Email" name="email" type="text" />
               <Input label="Password" name="password" type="password" />
-              <Input label="Name" name="name" type="text" />
 
               <button
                 type="submit"
