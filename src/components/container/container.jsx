@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Movies from "../movies/movies";
 import Rentals from "../rentals/rentals";
 import Customers from "../customers/customers";
@@ -9,11 +9,20 @@ import RegisterForm from "../register/register";
 import MoviesDetail from "../movies-detail/movies-detail";
 import "./container.css";
 import { Switch, Route, Redirect } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
 const Container = () => {
+  const [user, setUser] = useState();
+  useEffect(() => {
+    try {
+      const token = localStorage.getItem("token");
+      const { user } = jwtDecode(token);
+      setUser(user);
+    } catch (error) {}
+  }, []);
   return (
     <div className="container">
-      <NavBar />
+      <NavBar user={user} />
       <div className="row">
         <Switch>
           <Route path="/customers" component={Customers} />

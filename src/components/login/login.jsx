@@ -1,13 +1,13 @@
 import React from "react";
 import "./login.css";
-import Input from "../../_commons/input/input";
 import { Form, Formik } from "formik";
+import Input from "../../_commons/input/input";
 import { loginValidation } from "./loginValidation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import usersService from "../../services/users.service";
 
-const Login = () => {
+const Login = ({ history }) => {
   const initialValues = {
     email: "",
     password: "",
@@ -15,9 +15,14 @@ const Login = () => {
 
   const onSubmit = async (values) => {
     try {
-      await usersService.login(values);
+      const { headers } = await usersService.login(values);
+      localStorage.setItem("token", headers["x-auth-token"]);
+      window.location = "/";
     } catch (error) {
-      toast.error(error.response.data.message);
+      const errors = error.response.data;
+      return !!errors.length || !!errors.message
+        ? toast.error("Invalid Credentials")
+        : "";
     }
   };
 
