@@ -4,6 +4,8 @@ import jwtDecode from "jwt-decode";
 
 const tokenStoreItem = "token";
 
+const getToken = () => localStorage.getItem(tokenStoreItem);
+
 const saveUser = async (user) => {
   const { headers } = httpService.post(`${apiUrl}/users`, user);
   localStorage.setItem(tokenStoreItem, headers["x-auth-token"]);
@@ -20,7 +22,7 @@ const logout = () => {
 
 const getCurrentUser = () => {
   try {
-    const token = localStorage.getItem(tokenStoreItem);
+    const token = getToken();
     const { user } = jwtDecode(token);
     return user;
   } catch (error) {
@@ -33,4 +35,5 @@ export default {
   login,
   logout,
   getCurrentUser,
+  getToken,
 };

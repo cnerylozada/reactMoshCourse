@@ -1,4 +1,7 @@
 import axios from "axios";
+import usersService from "./users.service";
+
+axios.defaults.headers.common["x-auth-token"] = localStorage.getItem("token");
 
 axios.interceptors.response.use(null, (error) => {
   const expectedError =
