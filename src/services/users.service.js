@@ -5,6 +5,7 @@ import jwtDecode from "jwt-decode";
 const tokenStoreItem = "token";
 
 const getToken = () => localStorage.getItem(tokenStoreItem);
+httpService.setToken(getToken());
 
 const saveUser = async (user) => {
   const { headers } = httpService.post(`${apiUrl}/users`, user);
