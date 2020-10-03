@@ -22,12 +22,13 @@ const RegisterForm = (props) => {
       .min(7, "Password length must be at least 7 chars long"),
   });
 
-  const onSubmit = async (values) => {
+  const onSubmit = async ({ email, password }) => {
     try {
-      await usersService.save({
-        email: values.email,
-        password: values.password,
+      const { headers } = await usersService.save({
+        email,
+        password,
       });
+      localStorage.setItem("token", headers["x-auth-token"]);
       props.history.push("/movies");
     } catch (error) {
       toast.error(error.response.data);
