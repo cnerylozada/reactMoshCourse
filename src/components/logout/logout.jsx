@@ -1,9 +1,10 @@
 import React from "react";
 import { useEffect } from "react";
+import usersService from "../../services/users.service";
 
 const Logout = () => {
   useEffect(() => {
-    localStorage.removeItem("token");
+    usersService.logout();
     window.location = "/";
   }, []);
   return null;

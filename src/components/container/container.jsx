@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import jwtDecode from "jwt-decode";
 import NavBar from "../navbar/navbar";
 import Login from "../login/login";
 import RegisterForm from "../register/register";
@@ -11,15 +10,13 @@ import Rentals from "../rentals/rentals";
 import Customers from "../customers/customers";
 import NotFound from "../not-found/not-found";
 import "./container.css";
+import usersService from "../../services/users.service";
 
 const Container = () => {
   const [user, setUser] = useState();
   useEffect(() => {
-    try {
-      const token = localStorage.getItem("token");
-      const { user } = jwtDecode(token);
-      setUser(user);
-    } catch (error) {}
+    const user = usersService.getCurrentUser();
+    setUser(user);
   }, []);
   return (
     <div className="container">

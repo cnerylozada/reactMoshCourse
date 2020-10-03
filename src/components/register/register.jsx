@@ -6,7 +6,7 @@ import usersService from "../../services/users.service";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const RegisterForm = (props) => {
+const RegisterForm = () => {
   const initialValues = {
     email: "",
     password: "",
@@ -24,11 +24,10 @@ const RegisterForm = (props) => {
 
   const onSubmit = async ({ email, password }) => {
     try {
-      const { headers } = await usersService.save({
+      await usersService.save({
         email,
         password,
       });
-      localStorage.setItem("token", headers["x-auth-token"]);
       window.location = "/";
     } catch (error) {
       toast.error(error.response.data);

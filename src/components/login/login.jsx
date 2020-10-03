@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import usersService from "../../services/users.service";
 
-const Login = ({ history }) => {
+const Login = () => {
   const initialValues = {
     email: "",
     password: "",
@@ -15,8 +15,7 @@ const Login = ({ history }) => {
 
   const onSubmit = async (values) => {
     try {
-      const { headers } = await usersService.login(values);
-      localStorage.setItem("token", headers["x-auth-token"]);
+      await usersService.login(values);
       window.location = "/";
     } catch (error) {
       const errors = error.response.data;
