@@ -50,7 +50,7 @@ const NavBar = ({ user }) => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/movies" className="nav-link">
+                <NavLink to="/logout" className="nav-link">
                   Logout
                 </NavLink>
               </li>
