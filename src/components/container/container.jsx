@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+import NavBar from "../navbar/navbar";
+import Login from "../login/login";
+import RegisterForm from "../register/register";
 import Movies from "../movies/movies";
+import MoviesDetail from "../movies-detail/movies-detail";
 import Rentals from "../rentals/rentals";
 import Customers from "../customers/customers";
 import NotFound from "../not-found/not-found";
-import Login from "../login/login";
-import NavBar from "../navbar/navbar";
-import RegisterForm from "../register/register";
-import MoviesDetail from "../movies-detail/movies-detail";
 import "./container.css";
-import { Switch, Route, Redirect } from "react-router-dom";
-import jwtDecode from "jwt-decode";
 
 const Container = () => {
   const [user, setUser] = useState();

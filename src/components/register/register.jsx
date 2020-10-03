@@ -29,7 +29,7 @@ const RegisterForm = (props) => {
         password,
       });
       localStorage.setItem("token", headers["x-auth-token"]);
-      props.history.push("/movies");
+      window.location = "/";
     } catch (error) {
       toast.error(error.response.data);
     }
