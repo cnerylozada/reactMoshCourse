@@ -29,7 +29,11 @@ const Container = () => {
           <Route path="/logout" component={Logout} />
           <Route path="/rentals" component={Rentals} />
           <Route path="/movies/:id" component={MoviesDetail} />
-          <Route path="/movies" exact component={Movies} />
+          <Route
+            path="/movies"
+            exact
+            render={(props) => <Movies {...props} user={user} />}
+          />
           <Route path="/not-found" component={NotFound} />
           <Redirect from="/" exact to="/movies" />
           <Redirect to="/not-found" />

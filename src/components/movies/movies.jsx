@@ -104,11 +104,13 @@ class Movies extends Component {
           />
         </div>
         <div className="col-sm-8">
-          <Link to="/movies/0">
-            <button type="button" className="btn btn-primary">
-              New Movie
-            </button>
-          </Link>
+          {!!this.state.user && (
+            <Link to="/movies/0">
+              <button type="button" className="btn btn-primary">
+                New Movie
+              </button>
+            </Link>
+          )}
           <span className="movieMessage">
             {this.displayMovieMessage(filtered.length)}
           </span>
