@@ -6,8 +6,9 @@ import { loginValidation } from "./loginValidation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import usersService from "../../services/users.service";
+import { Redirect } from "react-router-dom";
 
-const Login = () => {
+const Login = (props) => {
   const initialValues = {
     email: "",
     password: "",
@@ -16,7 +17,8 @@ const Login = () => {
   const onSubmit = async (values) => {
     try {
       await usersService.login(values);
-      window.location = "/";
+      const { state } = props.location;
+      window.location = !!state ? state.from.pathname : "/";
     } catch (error) {
       const errors = error.response.data;
       return !!errors.length || !!errors.message
@@ -25,6 +27,7 @@ const Login = () => {
     }
   };
 
+  if (!!usersService.getCurrentUser()) return <Redirect to="/" />;
   return (
     <div className="col-sm-6">
       <ToastContainer />
