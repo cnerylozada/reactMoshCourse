@@ -11,6 +11,7 @@ import Customers from "../customers/customers";
 import NotFound from "../not-found/not-found";
 import "./container.css";
 import usersService from "../../services/users.service";
+import ProtectedRoute from "../protectedRoute/protectecRoute";
 
 const Container = () => {
   const [user, setUser] = useState();
@@ -23,7 +24,7 @@ const Container = () => {
       <NavBar user={user} />
       <div className="row">
         <Switch>
-          <Route path="/customers" component={Customers} />
+          <ProtectedRoute path="/customers" component={Customers} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={RegisterForm} />
           <Route path="/logout" component={Logout} />
