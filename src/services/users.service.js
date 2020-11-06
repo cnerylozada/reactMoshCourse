@@ -8,12 +8,12 @@ const getToken = () => localStorage.getItem(tokenStoreItem);
 httpService.setToken(getToken());
 
 const saveUser = async (user) => {
-  const { headers } = httpService.post(`${apiUrl}/users`, user);
+  const { headers } = httpService.post(`/users`, user);
   localStorage.setItem(tokenStoreItem, headers["x-auth-token"]);
 };
 
 const login = async (credentials) => {
-  const { data } = await httpService.post(`${apiUrl}/auth`, credentials);
+  const { data } = await httpService.post(`/auth`, credentials);
   localStorage.setItem(tokenStoreItem, data);
 };
 

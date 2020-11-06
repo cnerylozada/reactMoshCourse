@@ -3,7 +3,7 @@ import { capitalizeText, capitalizeString } from "../utils/numberOfPages";
 import httpService from "./httpService";
 
 const getMovies = () => {
-  return httpService.get(`${apiUrl}/movies`).then(({ data: _ }) =>
+  return httpService.get(`/movies`).then(({ data: _ }) =>
     _.map((movie) => ({
       ...movie,
       title: capitalizeText(movie.title),
@@ -13,7 +13,7 @@ const getMovies = () => {
 };
 
 const getMovieById = (id) => {
-  return httpService.get(`${apiUrl}/movies/${id}`).then(({ data: _ }) => ({
+  return httpService.get(`/movies/${id}`).then(({ data: _ }) => ({
     ..._,
     title: capitalizeText(_.title),
     genre: { ..._.genre, name: capitalizeString(_.genre.name) },
@@ -21,15 +21,15 @@ const getMovieById = (id) => {
 };
 
 const saveMovie = (movie) => {
-  return httpService.post(`${apiUrl}/movies`, movie);
+  return httpService.post(`/movies`, movie);
 };
 
 const putMovie = (movie) => {
-  return httpService.put(`${apiUrl}/movies/${movie.id}`, movie);
+  return httpService.put(`/movies/${movie.id}`, movie);
 };
 
 const deleteMovieById = (id) => {
-  return httpService.delete(`${apiUrl}/movies/${id}`);
+  return httpService.delete(`/movies/${id}`);
 };
 
 export default {

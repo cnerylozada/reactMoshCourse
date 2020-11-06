@@ -4,7 +4,7 @@ import httpService from "./httpService";
 
 const getGenres = () => {
   return httpService
-    .get(`${apiUrl}/genres`)
+    .get(`/genres`)
     .then(({ data: _ }) =>
       _.map((genre) => ({ ...genre, name: capitalizeString(genre.name) }))
     );
